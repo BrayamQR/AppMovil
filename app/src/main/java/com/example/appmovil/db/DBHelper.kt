@@ -2,10 +2,8 @@ package com.example.appmovil.db
 
 import android.content.ContentValues
 import android.content.Context
-import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.example.appmovil.entidades.UsuarioDto
 
 class DBHelper(context: Context):SQLiteOpenHelper(context, "DB_AppMovil",null,1) {
     override fun onCreate(p0: SQLiteDatabase?) {
@@ -42,32 +40,5 @@ class DBHelper(context: Context):SQLiteOpenHelper(context, "DB_AppMovil",null,1)
         return true
     }
 
-    fun ListarUsuarios(): ArrayList<UsuarioDto>{
-        val p0 = this.writableDatabase
-        val query = "select * from tblUsuario"
-        val ListaUsuario: ArrayList<UsuarioDto> = ArrayList<UsuarioDto>()
-        val  cursor: Cursor? = p0.rawQuery(query,null)
 
-        if (cursor != null) {
-            if(cursor.moveToFirst()){
-                do {
-                    var id = cursor.getInt(0)
-                    var user = cursor.getString(1)
-                    var password = cursor.getString(2)
-                    var nombre = cursor.getString(3)
-                    var dni = cursor.getString(4)
-
-                    val Usuario = UsuarioDto()
-                    Usuario.id = id
-                    Usuario.user = user
-                    Usuario.password = password
-                    Usuario.nombre = nombre
-                    Usuario.dni = dni
-                    ListaUsuario.add(Usuario)
-                }while (cursor.moveToNext())
-            }
-            cursor.close()
-        }
-        return ListaUsuario
-    }
 }

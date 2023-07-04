@@ -17,6 +17,7 @@ class formuser : AppCompatActivity() {
     private lateinit var confpassword: EditText
     private lateinit var btnGuardar: Button
     private lateinit var db: DBHelper
+    private  lateinit var btnCancelar: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +29,7 @@ class formuser : AppCompatActivity() {
         password = findViewById(R.id.txtRegPassword)
         confpassword = findViewById(R.id.txtRegConfigPassword)
         btnGuardar = findViewById(R.id.btnGuardar)
+        btnCancelar = findViewById(R.id.btnCancelar)
         db = DBHelper(this)
 
         btnGuardar.setOnClickListener{
@@ -57,6 +59,12 @@ class formuser : AppCompatActivity() {
                 }
             }
         }
+        btnCancelar.setOnClickListener{
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+
 
     }
 }

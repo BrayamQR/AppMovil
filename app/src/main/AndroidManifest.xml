@@ -7,23 +7,29 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="CompuTEC"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppMovil"
         tools:targetApi="31">
         <activity
-            android:name=".Usuario"
+            android:name=".product2"
             android:exported="false" />
+        <activity
+            android:name=".product1"
+            android:exported="false" />
+        <activity
+            android:name=".Home"
+            android:exported="false" />
+
         <activity
             android:name=".formuser"
             android:exported="false" />
-        <activity
-            android:name=".home"
-            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Base.Theme.AppMovil2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

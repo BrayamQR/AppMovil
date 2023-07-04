@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.Menu
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -17,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnRegistrar: Button
     private lateinit var db : DBHelper
     private val defaultUser = "upred"
-    private val defaultPassword = "123456"
+    private val defaultPassword = "1234"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -37,13 +38,13 @@ class MainActivity : AppCompatActivity() {
             else{
                 val checkExistUser = db.CheckExistUser(username,password)
                 if(checkExistUser == true){
-                    val intent = Intent(this, home::class.java)
+                    val intent = Intent(this, Home::class.java)
                     startActivity(intent)
                     finish()
                 }
 
                 else if(username == defaultUser && password == defaultPassword){
-                    val intent = Intent(this, home::class.java)
+                    val intent = Intent(this, Home::class.java)
                     startActivity(intent)
                     finish()
                 }
@@ -58,4 +59,5 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
 }
