@@ -38,7 +38,8 @@ class formuser : AppCompatActivity() {
             val confpass = confpassword.text.toString()
             val name = nombre.text.toString()
             val doc = dni.text.toString()
-            val savedata = db.InsertUser(username,pass,name,doc)
+            val credencial = "Cliente"
+            val savedata = db.InsertUser(username,pass,name,doc,credencial)
 
             if(TextUtils.isEmpty(username) || TextUtils.isEmpty(pass) || TextUtils.isEmpty(confpass) || TextUtils.isEmpty(name) || TextUtils.isEmpty(doc)){
                 Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show()
