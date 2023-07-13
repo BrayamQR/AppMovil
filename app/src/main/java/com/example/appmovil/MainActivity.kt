@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.Menu
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -28,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         btnIngresar = findViewById(R.id.btnIngresar)
         btnRegistrar = findViewById(R.id.btnRegistrar)
         db = DBHelper(this)
+        //db.eliminarTabla()
         btnIngresar.setOnClickListener{
             val username = user.text.toString()
             var password = pass.text.toString()
@@ -36,15 +36,23 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Los campos son obligatorios", Toast.LENGTH_SHORT).show()
             }
             else{
-                val checkExistUser = db.CheckExistUser(username,password)
+                val checkExistUser = db.ValidateLogin(username,password)
                 if(checkExistUser == true){
                     val intent = Intent(this, Home::class.java)
+                    val validAdmin = db.ValidateUserIsAdmin(username,password)
+                    if(validAdmin == true){
+                        intent.putExtra("tipo","Administrador")
+                    }
+                    else{
+                        intent.putExtra("tipo","Cliente")
+                    }
                     startActivity(intent)
                     finish()
                 }
 
                 else if(username == defaultUser && password == defaultPassword){
                     val intent = Intent(this, Home::class.java)
+                    intent.putExtra("tipo","Administrador")
                     startActivity(intent)
                     finish()
                 }

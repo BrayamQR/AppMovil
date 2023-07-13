@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.appmovil.db.DBHelper
+import com.example.appmovil.model.UsuarioModel
 
 class formuser : AppCompatActivity() {
     private lateinit var dni : EditText
@@ -23,6 +24,20 @@ class formuser : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_formuser)
 
+        initView()
+        db = DBHelper(this)
+
+
+        btnGuardar.setOnClickListener{
+            addUser()
+        }
+        btnCancelar.setOnClickListener{
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun initView(){
         dni = findViewById(R.id.txtRegDni)
         nombre = findViewById(R.id.txtRegNombre)
         user = findViewById(R.id.txtRegUsuario)
@@ -30,29 +45,35 @@ class formuser : AppCompatActivity() {
         confpassword = findViewById(R.id.txtRegConfigPassword)
         btnGuardar = findViewById(R.id.btnGuardar)
         btnCancelar = findViewById(R.id.btnCancelar)
-        db = DBHelper(this)
+    }
+    private fun addUser(){
+        val username = user.text.toString()
+        val pass = password.text.toString()
+        val confpass = confpassword.text.toString()
+        val name = nombre.text.toString()
+        val doc = dni.text.toString()
+        val tipo: String = "Cliente"
 
-        btnGuardar.setOnClickListener{
-            val username = user.text.toString()
-            val pass = password.text.toString()
-            val confpass = confpassword.text.toString()
-            val name = nombre.text.toString()
-            val doc = dni.text.toString()
-            val credencial = "Cliente"
-            val savedata = db.InsertUser(username,pass,name,doc,credencial)
 
-            if(TextUtils.isEmpty(username) || TextUtils.isEmpty(pass) || TextUtils.isEmpty(confpass) || TextUtils.isEmpty(name) || TextUtils.isEmpty(doc)){
-                Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show()
+        if(TextUtils.isEmpty(username) || TextUtils.isEmpty(pass) || TextUtils.isEmpty(confpass) || TextUtils.isEmpty(name) || TextUtils.isEmpty(doc)){
+            Toast.makeText(this, "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show()
+        }
+        else{
+            val checkExistUser = db.ValidateUserRegister(username,doc)
+            if(checkExistUser == true){
+                Toast.makeText(this, "El usuario/Dni ingresado ya existe", Toast.LENGTH_SHORT).show()
             }
             else{
                 if(pass.equals(confpass)){
+                    val user = UsuarioModel(dni = doc, nombre = name, user = username, password = pass, tipo = tipo)
+                    val savedata = db.InsertUser(user)
                     if(savedata == true){
                         Toast.makeText(this, "Guardado correctamente", Toast.LENGTH_SHORT).show()
                         val intent = Intent(applicationContext, MainActivity::class.java)
                         startActivity(intent)
                     }
                     else {
-                        Toast.makeText(this, "El usuario ya existe", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Error al registrar el usuario", Toast.LENGTH_SHORT).show()
                     }
                 }
                 else{
@@ -60,12 +81,5 @@ class formuser : AppCompatActivity() {
                 }
             }
         }
-        btnCancelar.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
-
-
-
     }
 }

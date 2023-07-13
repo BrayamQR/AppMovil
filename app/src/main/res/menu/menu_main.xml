@@ -13,10 +13,16 @@
                 android:title="Inicio"
                 />
             <item
+                android:id="@+id/btnMgUser"
+                android:icon="@drawable/baseline_user"
+                android:title="Usuarios"
+                />
+            <item
                 android:id="@+id/btnCerrar"
                 android:icon="@drawable/baseline_exit_to_app"
                 android:title="Cerrar Sesión"
                 />
+
         </menu>
     </item>
 
