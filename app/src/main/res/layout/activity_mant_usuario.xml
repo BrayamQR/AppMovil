@@ -31,12 +31,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:layout_margin="16dp">
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnMgNewUser"
                     android:text="Agregar usuario"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAllCaps="false"/>
+                    android:textAllCaps="false"
+                    app:icon="@drawable/baseline_add"/>
 
             </LinearLayout>
             <androidx.recyclerview.widget.RecyclerView

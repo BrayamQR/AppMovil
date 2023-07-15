@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.appmovil.db.DBHelper
 import com.example.appmovil.model.UsuarioModel
+import com.google.android.material.button.MaterialButton
 
 class formuser : AppCompatActivity() {
     private lateinit var dni : EditText
@@ -16,9 +17,9 @@ class formuser : AppCompatActivity() {
     private lateinit var user: EditText
     private lateinit var password : EditText
     private lateinit var confpassword: EditText
-    private lateinit var btnGuardar: Button
+    private lateinit var btnGuardar: MaterialButton
     private lateinit var db: DBHelper
-    private  lateinit var btnCancelar: Button
+    private  lateinit var btnCancelar: MaterialButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

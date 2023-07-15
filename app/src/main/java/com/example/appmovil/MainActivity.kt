@@ -8,13 +8,14 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.appmovil.db.DBHelper
+import com.google.android.material.button.MaterialButton
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var user: EditText
     private lateinit var pass: EditText
-    private  lateinit var btnIngresar: Button
-    private lateinit var btnRegistrar: Button
+    private  lateinit var btnIngresar: MaterialButton
+    private lateinit var btnRegistrar: MaterialButton
     private lateinit var db : DBHelper
     private val defaultUser = "upred"
     private val defaultPassword = "1234"

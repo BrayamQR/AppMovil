@@ -29,17 +29,23 @@
             android:exported="false" />
         <activity
             android:name=".formuser"
-            android:exported="false" />
+            android:exported="true"
+            android:theme="@style/Base.Theme.AppMovil2">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Base.Theme.AppMovil2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

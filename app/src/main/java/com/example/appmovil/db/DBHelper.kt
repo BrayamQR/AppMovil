@@ -108,11 +108,12 @@ class DBHelper(context: Context):SQLiteOpenHelper(context, "DB_AppMovil",null,1)
         return userList
     }
     @SuppressLint("Range")
-    fun getUsersById(id: Int) : UsuarioModel?{
+    fun getUsersById(id: Int?) : UsuarioModel?{
 
         val db = this.writableDatabase
-        val query = "select * from tblUsuario where id = $id"
+        val query = "select * from tblUsuario where id = $id LIMIT 1"
         val cursor = db.rawQuery(query, null)
+        var user : UsuarioModel? = UsuarioModel()
         if(cursor.count<= 0){
             cursor.close()
             return null
@@ -123,14 +124,17 @@ class DBHelper(context: Context):SQLiteOpenHelper(context, "DB_AppMovil",null,1)
         var usuario: String
         var pass: String
         var tipo: String
-        id = cursor.getInt(cursor.getColumnIndex("id"))
-        dni = cursor.getString(cursor.getColumnIndex("dni"))
-        nombre= cursor.getString(cursor.getColumnIndex("nombre"))
-        usuario = cursor.getString(cursor.getColumnIndex("user"))
-        pass = cursor.getString(cursor.getColumnIndex("password"))
-        tipo = cursor.getString(cursor.getColumnIndex("tipo"))
 
-        val user = UsuarioModel(id = id, dni = dni,nombre = nombre,user = usuario, password = pass, tipo = tipo)
+        if(cursor.moveToFirst()){
+            id = cursor.getInt(cursor.getColumnIndex("id"))
+            dni = cursor.getString(cursor.getColumnIndex("dni"))
+            nombre= cursor.getString(cursor.getColumnIndex("nombre"))
+            usuario = cursor.getString(cursor.getColumnIndex("user"))
+            pass = cursor.getString(cursor.getColumnIndex("password"))
+            tipo = cursor.getString(cursor.getColumnIndex("tipo"))
+
+            user = UsuarioModel(id = id, dni = dni,nombre = nombre,user = usuario, password = pass, tipo = tipo)
+        }
         return user
     }
     fun updateUser(user: UsuarioModel): Boolean{

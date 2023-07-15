@@ -3,10 +3,12 @@ package com.example.appmovil
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
 import android.text.TextUtils
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
@@ -14,7 +16,7 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.appmovil.db.DBHelper
 import com.example.appmovil.model.UsuarioModel
-
+import com.google.android.material.button.MaterialButton
 
 
 class RegMgUser: AppCompatActivity() {
@@ -24,14 +26,15 @@ class RegMgUser: AppCompatActivity() {
     private lateinit var txtMgUsuario: EditText
     private lateinit var txtMgPassword: EditText
     private lateinit var txtMgConfigPassword: EditText
-    private lateinit var btnMgGuardar: Button
-    private lateinit var btnMgVolver: Button
+    private lateinit var btnMgGuardar: MaterialButton
+    private lateinit var btnMgVolver: MaterialButton
+    private lateinit var btnMgEdit: MaterialButton
     private lateinit var db: DBHelper
     private lateinit var SelectTipo: AutoCompleteTextView
 
     private var tipo:String? = null
-
-    var listaTipoUsuario: Array<String> = arrayOf("Administrador", "Cliente")
+    private var id:Int? = 0;
+    val listaTipoUsuario = arrayOf("Administrador", "Cliente")
 
     private var ad: UserAdapter? = null
     private var us: UsuarioModel? = null
@@ -39,12 +42,59 @@ class RegMgUser: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reg_mg_user)
-        tipo = intent.getStringExtra("tipo")
+
+        val bundle = intent.extras
+        if(bundle != null){
+            tipo = bundle.getString("tipo")
+            id = bundle.getInt("id")
+        }
         initView()
         db = DBHelper(this)
+        if(id != 0){
+            us = db.getUsersById(id)
+            txtMgDni.setText(us?.dni)
+            txtMgNombre.setText(us?.nombre)
+            txtMgPassword.setText(us?.password)
+            txtMgConfigPassword.setText(us?.password)
+            txtMgUsuario.setText(us?.user)
+            SelectTipo.setText(us?.tipo,false)
+            btnMgGuardar.isEnabled = false
+            btnMgEdit.isEnabled = true
+            txtMgDni.isFocusable = false
+            txtMgDni.isFocusableInTouchMode = false
+            txtMgNombre.isFocusable = false
+            txtMgNombre.isFocusableInTouchMode = false
+            txtMgPassword.isFocusable = false
+            txtMgPassword.isFocusableInTouchMode = false
+            txtMgConfigPassword.isFocusable = false
+            txtMgConfigPassword.isFocusableInTouchMode = false
+            txtMgUsuario.isFocusable = false
+            txtMgUsuario.isFocusableInTouchMode = false
+            SelectTipo.isEnabled = false
 
+        }
         btnMgGuardar.setOnClickListener{
-            addUser()
+            if(id != 0){
+                updateUser()
+            }
+            else{
+                addUser()
+            }
+        }
+        btnMgEdit.setOnClickListener{
+            btnMgGuardar.isEnabled = true
+            btnMgEdit.isEnabled = false
+            txtMgDni.isFocusable = true
+            txtMgDni.isFocusableInTouchMode = true
+            txtMgNombre.isFocusable = true
+            txtMgNombre.isFocusableInTouchMode = true
+            txtMgPassword.isFocusable = true
+            txtMgPassword.isFocusableInTouchMode = true
+            txtMgConfigPassword.isFocusable = true
+            txtMgConfigPassword.isFocusableInTouchMode = true
+            txtMgUsuario.isFocusable = true
+            txtMgUsuario.isFocusableInTouchMode = true
+            SelectTipo.isEnabled = true
         }
         btnMgVolver.setOnClickListener{
             val intent = Intent(this, mantUsuario::class.java)
@@ -60,7 +110,7 @@ class RegMgUser: AppCompatActivity() {
         txtMgPassword = findViewById(R.id.txtMgPassword)
         txtMgConfigPassword = findViewById(R.id.txtMgConfigPassword)
         SelectTipo = findViewById(R.id.selectTipoUsuario)
-        adapter = ArrayAdapter<String>(this, R.layout.list_tipousuario,listaTipoUsuario)
+        adapter = ArrayAdapter(this, R.layout.list_tipousuario,listaTipoUsuario)
         SelectTipo.setAdapter(adapter)
         SelectTipo.setOnItemClickListener { parent, view, position, id ->
             val item = parent.getItemAtPosition(position).toString()
@@ -69,6 +119,8 @@ class RegMgUser: AppCompatActivity() {
 
         btnMgGuardar = findViewById(R.id.btnMgGuardar)
         btnMgVolver = findViewById(R.id.btnMgVolver)
+        btnMgEdit = findViewById(R.id.btnMgEdit)
+        btnMgEdit.isEnabled = false
     }
     private fun addUser(){
         val username = txtMgUsuario.text.toString()
@@ -106,7 +158,7 @@ class RegMgUser: AppCompatActivity() {
             }
         }
     }
-    /*private fun updateUser(){
+    private fun updateUser(){
         val username = txtMgUsuario.text.toString()
         val pass = txtMgPassword.text.toString()
         val confpass = txtMgConfigPassword.text.toString()
@@ -133,17 +185,14 @@ class RegMgUser: AppCompatActivity() {
         val savedata = db.updateUser(user)
         if(savedata == true){
             Toast.makeText(this, "Modificado correctamente", Toast.LENGTH_SHORT).show()
+            val intent = Intent(applicationContext, mantUsuario::class.java)
+            intent.putExtra("tipo",this.tipo)
+            startActivity(intent)
         }
         else{
             Toast.makeText(this, "Error al modificar el usuario", Toast.LENGTH_SHORT).show()
         }
     }
-
-    private fun getUserById(id: Int){
-        val user = db.getUsersById(id)
-        us = user
-    }
-     */
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main,menu)

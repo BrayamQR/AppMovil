@@ -4,125 +4,147 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegMgUser"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".RegMgUser">
+
     <ScrollView
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintTop_toBottomOf="parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/textViewTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
                 android:layout_gravity="center_horizontal"
-                android:gravity="center_vertical"
+                android:layout_marginTop="20sp"
                 android:fontFamily="sans-serif-black"
-                android:text="Registro de usuario"
-                android:layout_marginTop="20sp"/>
+                android:gravity="center_vertical"
+                android:text="Información del usuario"
+                android:textSize="20sp" />
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_margin="16dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Doc. de Identidad"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:layout_margin="16dp"
+                android:hint="Doc. de Identidad">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txtMgDni"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
+                    android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_margin="16dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nombre"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:layout_margin="16dp"
+                android:hint="Nombre">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txtMgNombre"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
+                    android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_margin="16dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Usuario"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:layout_margin="16dp"
+                android:hint="Usuario">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txtMgUsuario"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
+                    android:layout_height="wrap_content" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_margin="16dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:hint="Contraseña"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:layout_margin="16dp"
+                android:hint="Contraseña">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txtMgPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    />
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_margin="16dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-                android:hint="Confirmar Contraseña"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:layout_margin="16dp"
+                android:hint="Confirmar Contraseña">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txtMgConfigPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    />
+                    android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:hint="@string/select"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+                android:hint="@string/select">
+
                 <AutoCompleteTextView
                     android:id="@+id/selectTipoUsuario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
-                    />
+                    android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center">
-                <Button
+
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnMgGuardar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="Guardar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAllCaps="false"/>
-                <Button
-                    android:id="@+id/btnMgVolver"
-                    android:text="Volver"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    app:icon="@drawable/baseline_save"
                     android:textAllCaps="false"
+                    android:layout_gravity="center_horizontal" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMgEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="#F44336"
+                    android:text="Editar"
+                    app:icon="@drawable/baseline_edit"
+                    android:textAllCaps="false"
+                    android:layout_gravity="center_horizontal" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMgVolver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:backgroundTint="#0BA0B9"
-                    android:layout_marginStart="8dp"/>
+                    android:text="Volver"
+                    app:icon="@drawable/baseline_return"
+                    android:textAllCaps="false"
+                    android:layout_gravity="center_horizontal" />
 
             </LinearLayout>
+
+
         </LinearLayout>
     </ScrollView>
+
+
+
 </LinearLayout>

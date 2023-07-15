@@ -13,11 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appmovil.db.DBHelper
 import com.example.appmovil.model.UsuarioModel
+import com.google.android.material.button.MaterialButton
 
 class mantUsuario : AppCompatActivity() {
 
     private lateinit var db: DBHelper
-    private lateinit var btnMgNewUser: Button
+    private lateinit var btnMgNewUser: MaterialButton
     private lateinit var recycleView : RecyclerView
     private var ad: UserAdapter? = null
     private var us: UsuarioModel? = null
@@ -39,7 +40,10 @@ class mantUsuario : AppCompatActivity() {
         }
         ad?.setOnClickItem {
             Toast.makeText(this, it.nombre,Toast.LENGTH_SHORT).show()
-            us = it
+            val intent = Intent(this, RegMgUser::class.java)
+            intent.putExtra("tipo",tipo)
+            intent.putExtra("id",it.id)
+            startActivity(intent)
         }
         ad?.setOnClickDeleteItem {
             deleteUser(it.id)
